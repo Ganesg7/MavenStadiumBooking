@@ -18,8 +18,8 @@ ADD profilePic varchar2(4000) default 'defultImg.jpg';
 update users set wallet=0;
 select * from wallet_details;
 select wallet from users where userid=53;
-delete wallet_details where walletid=61;
-Update users set password='Monica' where userid=80;
+delete wallet_details where walletid=81;
+Update users set wallet=20000 where userid=121;
 Insert into Users (name,username,password,email,phonenumber) values('Chandler Bing','Chandler@10','Monica@c7',9897923434);
 
 select * from users order by userid;
@@ -49,6 +49,7 @@ FOREIGN KEY(sportsId) REFERENCES sports_info(sportsId)
 --ADD match_summary varchar2(200);
 
 select * from match_info order by match_date;
+select SYSTIMESTAMP from dual;
 insert into match_info(sportsId,stadium_name, location,match_date, match_time,teamA,teamB,teamAlogo, teamBlogo, totalseats, availableSeats, firstClass_Seats_price, secondClass_seats_price) values(100,Wankhede,Mumbai,Mumbai,01-01-70 07:30:00.000000000 PM ASIA/CALCUTTA ,CSK,MI,https://i2.wp.com/iplnews.site/wp-content/uploads/2020/09/csk-transparent-png-by-iplnews-1.png?fit=555%2C555&ssl=1,https://iconape.com/wp-content/png_logo_vector/mumbai-indians-logo.png,300,150,2000,900);
 commit;
 select * from match_info where lower(teama) like 'c%' or teamb like 'm%';
@@ -73,7 +74,7 @@ CACHE 1000;
 drop sequence match_id;
 
 select * from match_info;
-
+update match_info set match_date=match_date+1;
 select to_char(match_time,'HH:MI') from match_info;
 select match_id,sportsid, stadium_name,location,to_char(match_date,'dd-mm-yyyy') as match_date, to_char(match_time,'HH:MI') as match_time,teamA,teamB,teamAlogo,teamBlogo,firstclass_seats_price,secondclass_seats_price,totalseats,availableseats from match_info;
 create table sports_info(
@@ -185,7 +186,12 @@ amount number(30) default 0,
 FOREIGN KEY(userid) REFERENCES users(userid)
 );
 drop table wallet_details;
-select * from wallet_details;
+select to_char(Transaction_Date,'dd-mm-yyyy HH:MI:SS') from wallet_details;
+
+
+ALTER TABLE wallet_details
+add  Transaction_Date timestamp default systimestamp;
+
 select sysdate+90 from dual;
 delete from wallet_details where walletid=42 ;
 update wallet_details set amount=20000 where userid=121;

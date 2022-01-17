@@ -241,10 +241,10 @@ input:-webkit-autofill:active  {
             <input type="password" name="pass" id="rpass"    placeholder="Enter Your Password"> <br>
             <label id="repass" style="visibility: hidden;">Enter Password</label>
             <br>
-            <input type="email" id="mail" name="mail" placeholder="Enter Your E-mail"> <br>
+            <input type="email" id="mail" name="mail" onkeyup="sendemail()"  placeholder="Enter Your E-mail"> <br>
             <label id="lmail" style="visibility: hidden;">Enter Your E-Mail</label>
             <br>
-            <input type="text" name="phone" id="phone" placeholder="Enter Your Mobile Number"> <br>
+            <input type="text" name="phone" id="phone" onkeyup="verifyMobile()" placeholder="Enter Your Mobile Number"> <br>
 
             <label id="mobile" style="visibility: hidden;">Enter Mobile Number</label>
             <br>
@@ -440,7 +440,89 @@ input:-webkit-autofill:active  {
         
 
     }
+    
+    
+    
+    function sendemail()
+    {  
+   
+        let email=document.getElementById("mail").value;
 
+        
+        //console.log(email);
 
+    var url="chechEmail.jsp?email="+email;  
+    if(window.XMLHttpRequest){  
+    request=new XMLHttpRequest();  
+    }  
+    else if(window.ActiveXObject){  
+    request=new ActiveXObject("Microsoft.XMLHTTP");  
+    }  
+    try  
+    {  
+    request.onreadystatechange=getInfo;  
+    request.open("GET",url,true);  
+    request.send();  
+    }  
+    catch(e)  
+    {  
+    alert("Unable to connect to server");  
+    }
+        
+       }
+    
+    function getInfo(){  
+    	if(request.readyState==4){  
+    	var response =request.responseText; 
+    	//console.log(response);
+    	document.getElementById('lmail').innerHTML=response;
+    	 document.getElementById("lmail").style.color = "yellow";
+    	document.getElementById("lmail").style.visibility = "visible";
+    	//console.log(response);
+
+    	}  
+    	}
+    
+    
+    function verifyMobile() {  
+   
+        let phone=document.getElementById("phone").value;
+
+        
+        //console.log(phone);
+
+    var url="checkMobileNumber.jsp?phone="+phone;  
+    if(window.XMLHttpRequest){  
+    request=new XMLHttpRequest();  
+    }  
+    else if(window.ActiveXObject){  
+    request=new ActiveXObject("Microsoft.XMLHTTP");  
+    }  
+    try  
+    {  
+    request.onreadystatechange=getInfo;  
+    request.open("GET",url,true);  
+    request.send();  
+    }  
+    catch(e)  
+    {  
+    alert("Unable to connect to server");  
+    }
+        
+       }
+    
+    function getInfo(){  
+    	if(request.readyState==4){  
+    	var response =request.responseText; 
+    	//console.log(response);
+    	document.getElementById('mobile').innerHTML=response;
+    	 document.getElementById("mobile").style.visibility = "visible";
+         document.getElementById("mobile").style.color = "yellow";
+    	//console.log(response);
+
+    	}  
+    	}
+    
+    
 
 </script>
