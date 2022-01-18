@@ -10,7 +10,7 @@ import com.stadiumbooking.model.User;
 
 public interface UserDao {
 
-	public void insertUser(User user) throws ClassNotFoundException, SQLException;
+	public int insertUser(User user) throws ClassNotFoundException, SQLException;
     ResultSet getAllUser() throws ClassNotFoundException, SQLException;
 	public ResultSet getUserById(int id) throws ClassNotFoundException, SQLException;
 	public void updateUser(User user) throws ClassNotFoundException, SQLException;

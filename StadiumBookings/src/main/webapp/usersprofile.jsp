@@ -132,6 +132,8 @@ border-radius: 10px;
 
 
 	<%
+	session.setAttribute("RegisterSuccessful",null);
+	session.setAttribute("error",null );
 	int i = (int) session.getAttribute("id");
 	
 	//System.out.println(i);

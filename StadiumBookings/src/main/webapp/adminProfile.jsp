@@ -112,6 +112,7 @@ height:250px;
 
 
 	<%
+	session.setAttribute("error",null );
 	int i = (int) session.getAttribute("id");
 	
 	//System.out.println(i);

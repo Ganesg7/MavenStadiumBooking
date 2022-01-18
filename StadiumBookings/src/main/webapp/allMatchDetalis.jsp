@@ -203,6 +203,9 @@ left:1200px
 width: 50px;
 height: 50px;
 }
+
+
+
  #mathcInfo a{
          
    background-color: #f44336;
@@ -220,6 +223,8 @@ height: 50px;
 background-color: green;
 color: black;
         }
+
+
         
         #search{
         position:absolute;
@@ -331,7 +336,7 @@ if(dateRs.next()){
 	
 else{
 %>   
-   <a href="seats.jsp?matchId=<%=rs.getInt(1)%>">Book Tickets</a>
+   <a href="seats.jsp?matchId=<%=rs.getInt(1)%>" class="bookings effect">Book Tickets</a>
       <br><br>
      <%}} %>
      </div>

@@ -19,7 +19,7 @@ import com.stadiumbooking.model.User;
 
 
 
-@WebServlet("/adminHomeServes")
+@WebServlet("/loginServe")
 public class UserLoginController extends HttpServlet {
 	
 	UserDaoImpl userDao=new UserDaoImpl();
@@ -51,11 +51,13 @@ public class UserLoginController extends HttpServlet {
 			rs.close();
 			if(role.equals("Admin")) 
 					{
+				session.setAttribute("RegisterSuccessful", null);
 				res.sendRedirect("adminHome.html");
 				//res.sendRedirect("adminHome.html?userid=+rs.getInt(1));
 
 			}
 			else if(role.equals("User")) {
+				session.setAttribute("RegisterSuccessful", null);
 				res.sendRedirect("userHome.html");
 			}
 			
@@ -77,7 +79,7 @@ public class UserLoginController extends HttpServlet {
 			// TODO Auto-generated catch block
 			try {
 				HttpSession session = req.getSession();
-				 
+				session.setAttribute("RegisterSuccessful",null);
 					session.setAttribute("error",e.getMessage() );
 				res.sendRedirect("index.jsp");
 				

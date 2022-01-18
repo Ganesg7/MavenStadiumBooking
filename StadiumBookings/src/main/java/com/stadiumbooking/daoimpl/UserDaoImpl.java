@@ -12,6 +12,7 @@ import java.util.Scanner;
 import com.stadiumbooking.connection.ConnectionUtill;
 
 import com.stadiumbooking.dao.UserDao;
+import com.stadiumbooking.exception.SomthingWentWrong;
 import com.stadiumbooking.model.User;
 
 
@@ -20,7 +21,7 @@ public class UserDaoImpl  implements UserDao  {
 
 
 	@Override
-	public void insertUser(User user) throws ClassNotFoundException, SQLException {
+	public int insertUser(User user) throws ClassNotFoundException, SQLException {
 
 		/* Insert User Details Into database */
 		
@@ -39,9 +40,7 @@ public class UserDaoImpl  implements UserDao  {
 		stmt.setString(5, user.getEmail());
 		stmt.setLong(6, user.getPhoneNumber());
 	    int i=stmt.executeUpdate();
-		//System.out.println(i+" row inserted");
-		//System.out.println("Value Inserted Successfully");
-		
+		return i;
 		
 	}
 
@@ -274,4 +273,6 @@ public class UserDaoImpl  implements UserDao  {
 
 
 	}
+
+	
 }
