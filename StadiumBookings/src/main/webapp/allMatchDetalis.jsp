@@ -257,14 +257,36 @@ border: 2px solid blue;
   height: 50px;
   font-style: italic;
 }
-     input:-webkit-autofill,
+          input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active  {
-
   transition: background-color 5000s;
-  
 }
+
+
+
+::-webkit-scrollbar {
+  width: 12px;
+
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+    
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 
     </style>
 </head>

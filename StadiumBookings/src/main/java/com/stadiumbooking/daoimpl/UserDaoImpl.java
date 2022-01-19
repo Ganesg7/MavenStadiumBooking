@@ -269,7 +269,7 @@ public class UserDaoImpl  implements UserDao  {
 		return name;
 		
 	}
-		return null;
+		return name;
 
 
 	}

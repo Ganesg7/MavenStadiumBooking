@@ -248,6 +248,40 @@ height: 50px;
 	height: 50px;
 	font-style: italic;
 }
+
+
+          input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 5000s;
+}
+
+
+
+::-webkit-scrollbar {
+  width: 12px;
+
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+    
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
 </style>
 </head>
 
@@ -278,6 +312,7 @@ height: 50px;
 
 	<div id="mathcInfo">
 		<%
+		if(rs.next()==true){
 		while (rs.next()) {
 		%>
 		  <div class="allMatch" id="<%=rs.getString(7)+rs.getString(8)%>">
@@ -317,9 +352,11 @@ height: 50px;
 		             <br>
 <br>
 		<%
-		}
+		}}
+		else {
 		%>
-
+		<img style="width: 400px; height: 200px;"  src="image/no-search-found-removebg-preview.png">
+<%} %>
 	</div>
 
 </body>

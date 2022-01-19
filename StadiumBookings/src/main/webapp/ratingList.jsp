@@ -50,9 +50,94 @@ height: 50px;
 position: relative;
 left:0px;
 }
+
+
+
+
+::-webkit-scrollbar {
+  width: 12px;
+
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+    
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+ul {
+            margin: 0;
+            overflow: hidden;
+            background-color: gray;
+            color: white;
+            font-weight: bolder;
+            padding: 16px;
+            opacity: 0.5px;
+        }
+
+        li {
+            float: right;
+            color: white;
+        }
+#nav{
+position: absolute;
+left: 0px;
+top: 0px;
+width: 1355px;
+}        
+#nav a{
+color:white;
+text-decoration: none;
+}
         </style>
 </head>
 <body>
+<% int id=(int) session.getAttribute("id");
+            ResultSet user=userDao.getUserById(id);
+String role=null;
+            if(user.next()){
+	role=user.getString(4);
+}
+            %>
+<div id="nav">
+
+        <ul type="none">
+         
+            <b id="logo"> MatchBooking</b>
+            
+            <b>
+           
+            </b>
+      <li><a href="index.jsp">Logout</a></li>
+            <li>&nbsp; &nbsp;</li>
+            <li onclick="regsiter()"> <%if(role.equals("Admin")){ %>
+            <a href="adminHome.html">Home</a>
+            <%} else if(role.equals("User")){%>
+            <a href="userHome.html">Home</a>
+            <%} %></li>
+            
+           
+          
+          
+        </ul>
+    </div>
+
+
+<br><br>
+<br><br>
+
+    
 <%ResultSet rs=stadiumDao.getAllStadiumList(); 
 while(rs.next()){
 %>

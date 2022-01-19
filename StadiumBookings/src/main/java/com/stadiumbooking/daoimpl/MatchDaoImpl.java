@@ -70,7 +70,7 @@ public class MatchDaoImpl implements MatchDao {
 		ConnectionUtill conUtil=new ConnectionUtill();
 		Connection con=conUtil.getDBConnect();
 		Statement stmt=con.createStatement();
-		String query="select * from match_info order by match_date";
+		String query="select * from match_info order by match_date desc";
 		
 		ResultSet rs=stmt.executeQuery(query);
 

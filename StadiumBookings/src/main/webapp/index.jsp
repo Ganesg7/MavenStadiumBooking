@@ -86,7 +86,7 @@ height: 85px;
             font-size: 14px;
         }
         #login{
-        margin-left: 200px;
+        margin-left: 120px;
         }
         #regs{
         margin-left: 60px;
@@ -104,6 +104,31 @@ input:-webkit-autofill:active  {
     background-repeat: no-repeat;
     background-size:cover;
 }
+
+
+::-webkit-scrollbar {
+  width: 12px;
+
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+    
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+
     </style>
 </head>
 
@@ -135,7 +160,7 @@ input:-webkit-autofill:active  {
         </div>
 
     </nav>
-<img id="iconn" src="image/Studium.png">
+<img id="iconn" class="d-none d-sm-block" src="image/Studium.png">
 
     <section id="con"  class="bg-info text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
         <div class="container">
@@ -146,13 +171,13 @@ input:-webkit-autofill:active  {
     String error=(String)session.getAttribute("error");
     if (error!=null) {
     %>
-     <h2  id="Emesg" onclick="Error()" style="position:absolute; left:665px; top:100px;color:orange;visibility:visible"> <%=session.getAttribute("error") %></h2>
+     <h2  id="Emesg" onclick="Error()" style="position:absolute; left:665px; top:100px;color:orange;visibility:visible"><i class="bi bi-emoji-frown"></i> <%=session.getAttribute("error") %></h2>
    <%} %>
    <%String message=(String) session.getAttribute("RegisterSuccessful");
    
    if(message!=null){%>
     
-      <h2  id="RegSus" onclick="RegSus()" style="position:absolute; left:700px; top:100px;color:white;visibility:visible"> <%=session.getAttribute("RegisterSuccessful")%></h2>
+      <h2  id="RegSus" onclick="RegSus()" style="position:absolute; left:700px; top:100px;color:white;visibility:visible"><i class="bi bi-emoji-smile"></i> <%=session.getAttribute("RegisterSuccessful")%></h2>
     <%} %>
     
     
@@ -160,7 +185,7 @@ input:-webkit-autofill:active  {
    
    if(SomthingWentWrong!=null){%>
     
-      <h2  id="RegSus" onclick="RegSus()" style="position:absolute; left:660px; top:80px;color:red;visibility:visible"> <span style='font-size:50px;'>&#128577;</span> <%=session.getAttribute("SomthingWentWrong")%></h2>
+      <h2  id="RegSus" onclick="RegSus()" style="position:absolute; left:660px; top:80px;color:red;visibility:visible"> <i class="bi bi-emoji-frown"></i> <%=session.getAttribute("SomthingWentWrong")%></h2>
     <%} %>
     
     
@@ -196,10 +221,10 @@ input:-webkit-autofill:active  {
                     <div class="card bg-dark text-light">
                         <div class="card-body text-center">
                             <div class="h2 mb-3">
-                                <i class="bi bi-laptop"></i>
+                                <i class="bi bi-binoculars"></i>
                             </div>
                             <h3 class="card-title mb-3">
-                                Online Sale
+                                Search
                             </h3>
                             <p class="card-text">
                                 Online Sale of TATA IPL Ticket start
@@ -232,7 +257,7 @@ input:-webkit-autofill:active  {
                     <div class="card bg-dark text-light">
                         <div class="card-body text-center">
                             <div class="h2 mb-3">
-                                <i class="bi bi-laptop"></i>
+                                <i class="bi bi-calendar3"></i>
                             </div>
                             <h3 class="card-title mb-3">
                                 Online Sale
@@ -455,6 +480,7 @@ input:-webkit-autofill:active  {
               <h5 class="modal-title" id="exampleModalLabel">Login Form</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+          
             <div class="modal-body">
                
                 <div id="login">
