@@ -522,7 +522,7 @@ input:-webkit-autofill:active  {
                         <input type="text" id="name" name="name" placeholder="Enter Your Name"> <br>
                         <label id="lname" style="visibility: hidden;">Enter Your Name</label>
                         <br>
-                        <input type="text" id="runame" name="uname" placeholder="Enter Your Username"> <br>
+                        <input type="text"  onkeyup="userName()" id="runame" name="uname" placeholder="Enter Your Username"> <br>
                         <label for="username" id="luname" style="visibility: hidden;">Enter Your Username</label>
                         <br>
                         <input type="password" name="pass" id="rpass"    placeholder="Enter Your Password"> <br>
@@ -828,6 +828,49 @@ input:-webkit-autofill:active  {
     	 document.getElementById("mobile").style.visibility = "visible";
          document.getElementById("mobile").style.color = "red";
          var mobileNumber = document.getElementById("phone");
+      
+    	//console.log(response);
+
+    	}  
+    	}
+    
+    
+
+    function userName() {  
+   
+        let userName=document.getElementById("runame").value;
+
+        
+        //console.log(phone);
+
+    var url="checkUsername.jsp?userName="+userName;  
+    if(window.XMLHttpRequest){  
+    request=new XMLHttpRequest();  
+    }  
+    else if(window.ActiveXObject){  
+    request=new ActiveXObject("Microsoft.XMLHTTP");  
+    }  
+    try  
+    {  
+    request.onreadystatechange=getInf;  
+    request.open("GET",url,true);  
+    request.send();  
+    }  
+    catch(e)  
+    {  
+    alert("Unable to connect to server");  
+    }
+        
+       }
+    
+    function getInf(){  
+    	if(request.readyState==4){  
+    	var response =request.responseText; 
+    	//console.log(response);
+    	document.getElementById('luname').innerHTML=response;
+    	 document.getElementById("luname").style.visibility = "visible";
+         document.getElementById("luname").style.color = "red";
+   
       
     	//console.log(response);
 

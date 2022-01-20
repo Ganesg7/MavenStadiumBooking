@@ -35,12 +35,14 @@ public class UserController extends HttpServlet {
 		
 		
 		
-		
 		User user = new User(name, uname, pass, mail, phone);
 		try {
+			
+			
+			
 
-			int i = userDao.insertUser(user);
-			if (i == 1) {
+			boolean flag=userDao.checkUser(uname, mail, phone);
+			if (flag == true) {
 				throw new RegisterSuccessful();
 				// res.sendRedirect("login.jsp");
 			} else {
@@ -57,7 +59,7 @@ public class UserController extends HttpServlet {
 
 			try {
 				HttpSession session = req.getSession();
-
+				session.setAttribute("SomthingWentWrong", null);
 				session.setAttribute("RegisterSuccessful", e.getMessage());
 				res.sendRedirect("index.jsp");
 			} catch (IOException e1) {

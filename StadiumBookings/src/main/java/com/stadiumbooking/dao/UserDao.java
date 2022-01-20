@@ -23,4 +23,5 @@ public interface UserDao {
 	public Double userWalletDetails(int userid) throws ClassNotFoundException, SQLException;
 	public void updateUserProfilePic(int useid,String pic) throws ClassNotFoundException, SQLException;
 	public String getUserNamebyId(int userid) throws ClassNotFoundException, SQLException;
+	public boolean checkUser(String userName,String email,Long phone) throws ClassNotFoundException, SQLException;
 }

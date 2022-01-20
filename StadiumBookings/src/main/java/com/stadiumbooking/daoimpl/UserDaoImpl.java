@@ -274,5 +274,30 @@ public class UserDaoImpl  implements UserDao  {
 
 	}
 
+	@Override
+	public boolean checkUser(String userName, String email, Long phone) throws ClassNotFoundException, SQLException {
+		
+		ConnectionUtill conUtil=new ConnectionUtill();
+		Connection con=conUtil.getDBConnect();
+		
+
+		//System.out.println("Dao"+id);
+		
+		String query="Select * from users where username=? or email=? or phoneNumber=?";		
+
+		PreparedStatement stmt1=con.prepareStatement(query);		
+		stmt1.setString(1, userName);
+		stmt1.setString(2, email);
+		stmt1.setLong(3, phone);
+		ResultSet rs2=stmt1.executeQuery();
+		
+		if(rs2.next()) {
+		return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 	
 }
