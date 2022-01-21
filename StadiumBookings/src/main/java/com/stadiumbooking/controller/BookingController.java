@@ -76,6 +76,7 @@ public class BookingController extends HttpServlet {
 			Seats seats=new Seats(userId,ticketNumber,matchId,seatclass,totalprice,seatCounts);
 			seatDao.bookingSeats(seats);
 		
+			userDao.bookingTicktes(userId, totalprice);
 			matchDao.updateAvailableSeats(seatCounts, matchId);
 			
 			res.sendRedirect("mymatch.jsp?ticketId=0");

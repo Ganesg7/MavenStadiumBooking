@@ -21,6 +21,27 @@ UserDaoImpl userDao = new UserDaoImpl();
 <link rel = "icon" type = "" href = "image/Studium.png">
 <title>Matchbooking.com</title>
 <style>
+
+::-webkit-scrollbar {
+  width: 12px;
+
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+    
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 .sidenav {
 	height: 100%;
 	width: 200px;

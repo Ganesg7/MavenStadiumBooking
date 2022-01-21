@@ -43,6 +43,8 @@ public class UserController extends HttpServlet {
 
 			boolean flag=userDao.checkUser(uname, mail, phone);
 			if (flag == true) {
+				
+				userDao.insertUser(user);
 				throw new RegisterSuccessful();
 				// res.sendRedirect("login.jsp");
 			} else {
@@ -59,6 +61,7 @@ public class UserController extends HttpServlet {
 
 			try {
 				HttpSession session = req.getSession();
+				session.setAttribute("error",null);
 				session.setAttribute("SomthingWentWrong", null);
 				session.setAttribute("RegisterSuccessful", e.getMessage());
 				res.sendRedirect("index.jsp");
@@ -70,6 +73,7 @@ public class UserController extends HttpServlet {
 			try {
 				HttpSession session = req.getSession();
 
+				session.setAttribute("error",null);
 				session.setAttribute("SomthingWentWrong", e.getMessage());
 				res.sendRedirect("index.jsp");
 			} catch (IOException e1) {

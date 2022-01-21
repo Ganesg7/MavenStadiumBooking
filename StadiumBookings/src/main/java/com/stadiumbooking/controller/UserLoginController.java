@@ -51,12 +51,14 @@ public class UserLoginController extends HttpServlet {
 			rs.close();
 			if(role.equals("Admin")) 
 					{
+				session.setAttribute("SomthingWentWrong", null);
 				session.setAttribute("RegisterSuccessful", null);
 				res.sendRedirect("adminHome.html");
 				//res.sendRedirect("adminHome.html?userid=+rs.getInt(1));
 
 			}
 			else if(role.equals("User")) {
+				session.setAttribute("SomthingWentWrong", null);
 				session.setAttribute("RegisterSuccessful", null);
 				res.sendRedirect("userHome.html");
 			}
@@ -79,6 +81,7 @@ public class UserLoginController extends HttpServlet {
 			// TODO Auto-generated catch block
 			try {
 				HttpSession session = req.getSession();
+				session.setAttribute("SomthingWentWrong", null);
 				session.setAttribute("RegisterSuccessful",null);
 					session.setAttribute("error",e.getMessage() );
 				res.sendRedirect("index.jsp");
