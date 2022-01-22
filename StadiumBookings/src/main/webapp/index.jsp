@@ -13,7 +13,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
     <style>
+    html {
+    overflow-x:hidden;
+  scroll-behavior: smooth;
+}
          li {
             float: right;
             color: black;
@@ -99,11 +107,46 @@ input:-webkit-autofill:active  {
   transition: background-color 5000s;
   -webkit-text-fill-color: blue !important;
 }
+
+#loginBuuton,#regButton {         
+       transition:transform 300ms,background-color 300ms;
+  animation:pulse 500ms;
+        }
+        #loginBuuton:hover,#regButton:hover{
+transform:scale(1.05);
+        }
+        #loginBuuton:active,#regButton:active{
+        transform:scale(0.95);
+        animation:none; 
+        }
+        
+        @keyframes pulse{
+        from{
+        box-shadow: yellow 0 0 0;
+        }
+        to{
+        box-shadow: blue 0 0 0 6px;
+        }
+        }
+        
+
     #con{
     background-image:url('image/StadiumImages.jpg');
     background-repeat: no-repeat;
     background-size:cover;
 }
+
+#partentRow{
+margin-left: 160px;
+}
+#bcci{
+margin-left: 120px;
+}
+
+#dream{
+margin-left: 120px;
+}
+
 
 
 ::-webkit-scrollbar {
@@ -165,7 +208,7 @@ input:-webkit-autofill:active  {
     <section id="con"  class="bg-info text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
         <div class="container">
             <div class="d-sm-flex align-items-center justify-content-between">
-                <div>
+                <div class="animate__animated animate__fadeInLeft">
                     
     <%
     String error=(String)session.getAttribute("error");
@@ -193,9 +236,9 @@ input:-webkit-autofill:active  {
                     <p class="lead font-weight-light my-4 ">
                         Upcoming TaTa IPL Tickets sales stared Book Now and Supports your Favorite Team
                     </p>
-                    <button class="btn btn-primary btn-outline-warning text-light" data-bs-toggle="modal" data-bs-target="#enroll">Book Now</button>
+                    <button class="btn btn-primary btn-outline-warning text-light" id="loginBuuton" data-bs-toggle="modal" data-bs-target="#enroll">Book Now</button>
                 </div>
-                <div>
+                <div class="animate__animated animate__flipInY animate__delay-1s">
                     <img class="img-fluid h-100  max-width-200 d-none d-sm-block"
                         src="image/iplLogo.png"
                         alt="">
@@ -208,7 +251,7 @@ input:-webkit-autofill:active  {
         <div class="container">
             <div class="d-md-flex justify-content-between align-items-center">
                 <h3 class="mb-3 mb-md-0">Register Now For Booking</h3>
-                <button class="btn btn-info btn-outline-warning text-light" data-bs-toggle="modal" data-bs-target="#register">Register</button>
+                <button class="btn btn-info btn-outline-warning text-light" id="regButton" data-bs-toggle="modal" data-bs-target="#register">Register</button>
             </div>
             
         </div>
@@ -218,7 +261,7 @@ input:-webkit-autofill:active  {
         <div class="container">
             <div class="row text-center g-4">
                 <div class="col-md">
-                    <div class="card bg-dark text-light">
+                    <div class="card bg-dark text-light ">
                         <div class="card-body text-center">
                             <div class="h2 mb-3">
                                 <i class="bi bi-binoculars"></i>
@@ -245,9 +288,8 @@ input:-webkit-autofill:active  {
                                 Register Now
                             </h3>
                             <p class="card-text">
-                                Online Sale of TATA IPL Ticket start
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum fugit doloremque at,
-                                nobis facere explicabo.
+                            Be an early bird! Grab your tickets now. Limited seats are available. Click here to register.
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum fugit 
                             </p>
                             <a href="#" class="btn btn-dark">Read More</a>
                         </div>
@@ -274,6 +316,72 @@ input:-webkit-autofill:active  {
             </div>
         </div>
     </section>
+
+ <section id="ins" class="p-5 bg-dark">
+        <div class="container">
+            <h2 class="text-center text-white">Official Partners</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card bg-dark">
+
+                        <div class="card-body text-center">
+                            <img class="mb-3 w-100"
+                                src="image/36-361290_iccs-anti-corruption-unit-to-investigate-world-t20-removebg-preview.png"
+                                alt="">
+                           
+                                    </div>
+                    </div>
+                
+                </div>    
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="card bg-dark">
+
+                        <div class="card-body text-center">
+                            <img class="mb-3  w-50"
+                                src="image/BCCI_logo.png"
+                                alt="">
+                            
+                                    </div>
+                    </div>
+                
+                </div>    
+
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card bg-dark">
+
+                        <div class="card-body text-center">
+                            <img class="mb-3 w-100"
+                                src="image/dream11_logo_twitter_1_1633948080011-removebg-preview.png"
+                                alt="">
+                            
+                                    </div>
+                    </div>
+                
+                </div>  
+                  
+                </div>  
+                
+                
+                <div class="row g-4 " id="partentRow">
+                   <div class="col-md-6 col-lg-3 ">
+                    <h3 class="card-title mb-2 pl-10 text-light d-none d-sm-block">ICC</h3>
+                   </div>
+                     <div class="col-md-6 col-lg-3" id="bcci">
+                   <h3 class="card-title mb-3 text-light d-none d-sm-block">BCCI</h3>
+                </div>
+                  <div class="col-md-6 col-lg-3">
+                   <h3 class="card-title mb-3 text-light d-none d-sm-block" id="dream">Dream11</h3>
+                </div>
+                 
+                </div>  
+        </div>
+
+    </section>
+
+
+
 
     <section id="stadium" class="p-5">
 
@@ -352,7 +460,7 @@ input:-webkit-autofill:active  {
 
                         <div class="card-body text-center">
                             <img class="mb-3 w-100"
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpf3QfT1SfcpPYLxziFHNKGR4kJ6wNZq6VBA&usqp=CAU"
+                                src="image/stevOliver.jpg"
                                 alt="">
                             <h3 class="card-title mb-3"> Oliver Queen</h3>
                             <p class="card-text">
@@ -375,7 +483,7 @@ input:-webkit-autofill:active  {
 
                         <div class="card-body text-center">
                             <img class="mb-3 w-100"
-                                src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/flash-trailer-1612260093.png"
+                                src="image/grantFlash.png"
                                 alt="">
                             <h3 class="card-title mb-3"> Barry Allen</h3>
                             <p class="card-text">
@@ -397,7 +505,7 @@ input:-webkit-autofill:active  {
 
                         <div class="card-body text-center">
                             <img class="mb-3 w-100"
-                                src="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/tom-holland-robert-downey-jr_0.jpg"
+                                src="image/tomPeter.jpg"
                                 alt="">
                             <h3 class="card-title mb-3"> Peter Parker</h3>
                             <p class="card-text">
@@ -420,7 +528,7 @@ input:-webkit-autofill:active  {
 
                         <div class="card-body text-center">
                             <img class="mb-3 w-100"
-                                src="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/evans_m.jpg"
+                                src="image/steave.jpg"
                                 alt="">
                             <h3 class="card-title mb-3">Steve Rogers</h3>
                             <p class="card-text">

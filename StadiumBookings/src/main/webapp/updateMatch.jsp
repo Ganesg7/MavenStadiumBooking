@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-
+  <link  rel="stylesheet"    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel = "icon" type = "" href = "image/Studium.png">
 <title>Matchbooking.com</title>
 <style>
@@ -112,7 +112,7 @@ font-size: 20px;
     dateRs.next();
    if(rs.next()){
     %>
-    <div id="updateMatch">
+    <div class="animate__animated animate__zoomIn animate__slow" id="updateMatch">
     <div>
      <div>
      <img src="image/<%=rs.getString(7) %>"> &nbsp; &nbsp;<b id="vs">Vs</b>  &nbsp;  <img src="image/<%=rs.getString(8) %>" id="teamBlogo">
@@ -125,7 +125,7 @@ font-size: 20px;
     <br>
     </div>
        <br>
-    <div id="matchDetails">
+    <div class="animate__animated animate__fadeInDown animate__delay-2s" id="matchDetails">
     <b ><%=rs.getString(2) %></b>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <b><%=rs.getString(1) %></b>
