@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-  <%@page import="com.stadiumbooking.daoimpl.MatchDaoImpl" %>
-    <%@page import="java.sql.ResultSet" %>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+  <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,27 @@
 <link rel = "icon" type = "" href = "image/Studium.png">
 <title>Matchbooking.com</title>
 <style>
+
+.sidenav {
+	height: 100%;
+	width: 200px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: steelblue;
+}
+
+.sidenav a {
+	padding: 6px 6px 6px 32px;
+	text-decoration: none;
+	font-size: 23px;
+	color: white;
+	display: block;
+}
+
+.sidenav a:hover {
+	color: black;
+}
 
 #updateMatch{
  position:absolute;
@@ -104,48 +126,59 @@ font-size: 20px;
 </style>
 </head>
 <body>
-  <%
-    MatchDaoImpl matchDao=new MatchDaoImpl();
-      int matchId=Integer.parseInt(request.getParameter("matchId")) ;
-    ResultSet rs=matchDao.getMatchByMatchId(matchId);
-    ResultSet dateRs=matchDao.getDate();
-    dateRs.next();
-   if(rs.next()){
-    %>
+
+<div class="sidenav">
+	   <a href="adminProfile.jsp">Profile</a>
+        <a href="matchDetails.jsp">Match Details</a>
+        <a href="stadiumDetalis.jsp">Stadium Details</a>
+        <a href="sportsDetalis.jsp">Sports Details</a>
+       <a href="Getallusers.jsp?deleteId=0">All User</a>
+        <a href="showMatchToAdmin.jsp">All Match Details</a>
+        <a href="allBookingDetails.jsp">Booking Details</a>
+        <a href="allUserWalletList.jsp">All User Wallet List</a>
+        <a href="stadiumList.jsp">Stadium List</a>
+        <a href="ratingList.jsp">Rating List</a>
+        <a href="index.jsp">Logout</a>
+	</div>
+
+
+ 
+ 	<c:forEach items="${sessionScope.singleMatch}" var="match">
+
     <div class="animate__animated animate__zoomIn animate__slow" id="updateMatch">
     <div>
      <div>
-     <img src="image/<%=rs.getString(7) %>"> &nbsp; &nbsp;<b id="vs">Vs</b>  &nbsp;  <img src="image/<%=rs.getString(8) %>" id="teamBlogo">
+     <img src="image/${match.teamAlogo}"> &nbsp; &nbsp;<b id="vs">Vs</b>  &nbsp;  <img src="image/${match.teamBlogo}" id="teamBlogo">
     <br>
     <br>
-    <strong id="teamA"><%=rs.getString(5) %></strong>  
+    <strong id="teamA">${match.teamA}</strong>  
     
      
-    <strong id="teamB"><%=rs.getString(6) %></strong>
+    <strong id="teamB">${match.teamB}</strong>
     <br>
     </div>
        <br>
     <div class="animate__animated animate__fadeInDown animate__delay-2s" id="matchDetails">
-    <b ><%=rs.getString(2) %></b>
+    <b >${match.stadium_name}</b>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <b><%=rs.getString(1) %></b>
+    <b>${match.location}</b>
     <br>
-   
-    <br> <%=rs.getString(3) %> &nbsp; &nbsp; <%=rs.getString(4) %>
+    <fmt:parseDate value="${match.match_date}" pattern="yyyy-MM-dd" var="macthDate" type="date"/>
+    <br> <fmt:formatDate pattern="dd/MM/yyyy" value="${macthDate}"/> &nbsp; &nbsp; ${match.match_time}
     <br>
     </div>
     </div>
     <form action="updateMatch" >
 
-<input type="text" name="matchId" value="<%=matchId%>" style="visibility:hidden;">
+<input type="text" name="matchId" value="${match.match_id}" style="visibility:hidden;">
 <br>
-        <input type="date" min="<%=dateRs.getDate(1) %>" name="matchDate" id="matchDate" required>
+        <input type="date" min="${sessionScope.today}" name="matchDate" id="matchDate" required>
         <br>
         <input type="time" name="matchTime" id="matchTime" required>
         <br>
         <button type="submit">Update</button>
     </form>
     </div>
-    <%} %>
+    </c:forEach>
 </body>
 </html>
