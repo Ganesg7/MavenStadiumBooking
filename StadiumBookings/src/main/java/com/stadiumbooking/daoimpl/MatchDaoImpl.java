@@ -58,7 +58,7 @@ public class MatchDaoImpl implements MatchDao {
 				stmt.close();
 		     	
 			}
-			if(con !=null) {
+			if(con!=null) {
 				con.close();
 
 			}
@@ -107,9 +107,7 @@ public class MatchDaoImpl implements MatchDao {
 			e.printStackTrace();
 		}
 		finally {
-			if(rs!=null) {
-				rs.close();
-			}
+		
 			if(stmt!=null) {
 				stmt.close();
 		     	
@@ -144,9 +142,7 @@ public class MatchDaoImpl implements MatchDao {
 			e.printStackTrace();
 		}
 		finally {
-			if(rs!=null) {
-				rs.close();
-			}
+			
 			if(stmt!=null) {
 				stmt.close();
 		     	
@@ -198,9 +194,7 @@ public class MatchDaoImpl implements MatchDao {
 		
 			e.printStackTrace();
 		}finally {
-			if(rs!=null) {
-				rs.close();
-			}
+		
 			if(pst!=null) {
 				pst.close();
 		     	
@@ -297,9 +291,11 @@ public class MatchDaoImpl implements MatchDao {
 		List<Match> matchList=null;
 		try {
 			con = conUtil.getDBConnect();
-			String query="select MATCH_ID,SPORTSID,STADIUM_NAME,LOCATION,to_char(MATCH_DATE,'yyyy-mm-dd'),to_char(MATCH_TIME,'HH:MI'),TEAMA,TEAMB,TEAMALOGO,TEAMBLOGO,TOTALSEATS,AVAILABLESEATS,FIRSTCLASS_SEATS_PRICE,SECONDCLASS_SEATS_PRICE from match_info where teama like '"+teamName.toUpperCase()+"%' or teamb like '"+teamName.toUpperCase()+"%' ";
-			 pst=con.prepareStatement(query);
-			 rs=pst.executeQuery();
+			String query="select MATCH_ID,SPORTSID,STADIUM_NAME,LOCATION,to_char(MATCH_DATE,'yyyy-mm-dd'),to_char(MATCH_TIME,'HH:MI'),TEAMA,TEAMB,TEAMALOGO,TEAMBLOGO,TOTALSEATS,AVAILABLESEATS,FIRSTCLASS_SEATS_PRICE,SECONDCLASS_SEATS_PRICE from match_info where teama like ? or teamb like ?"; 
+			pst=con.prepareStatement(query);
+			 pst.setString(1, teamName.toUpperCase()+"%");
+			 pst.setString(2, teamName.toUpperCase()+"%");
+			rs=pst.executeQuery();
 			 matchList=new ArrayList<>();
 			String dateInStering;
 			String tiemString;
@@ -321,9 +317,7 @@ public class MatchDaoImpl implements MatchDao {
 			
 			e.printStackTrace();
 		}	finally {
-			if(rs!=null) {
-				rs.close();
-			}
+			
 			if(pst!=null) {
 				pst.close();
 		     	
@@ -394,9 +388,7 @@ public class MatchDaoImpl implements MatchDao {
 		
 			e.printStackTrace();
 		}finally {
-			if(rs!=null) {
-				rs.close();
-			}
+		
 			if(	pstmt!=null) {
 				pstmt.close();
 		     	
