@@ -1,6 +1,6 @@
 package com.stadiumbooking.dao;
 
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,5 +11,6 @@ public interface SeatsDao {
 	public List<Seats> getSeatById(int userId) throws  SQLException;
 	public List<Seats> getSeatsDetalis() throws  SQLException;
 	public void cancelledSeats(int ticketId) throws  SQLException; 
+	public void updateSeatsAndRefund(int ticketId) throws SQLException; 
 
 }

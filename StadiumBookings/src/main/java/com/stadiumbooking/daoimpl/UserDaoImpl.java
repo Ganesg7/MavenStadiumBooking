@@ -1,23 +1,29 @@
 package com.stadiumbooking.daoimpl;
 
-import java.io.PrintWriter;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import com.stadiumbooking.connection.ConnectionUtill;
-
 import com.stadiumbooking.dao.UserDao;
-import com.stadiumbooking.exception.SomthingWentWrong;
 import com.stadiumbooking.model.User;
 
 public class UserDaoImpl implements UserDao {
 
+	static final String USERID="USERID";
+	static final String NAME="NAME";
+	static final String USERNAME="USERNAME";
+	static final String ROLE="ROLE";
+	static final String PASSWORD="PASSWORD";
+	static final String EMAIL="EMAIL";
+	static final String PHONENUMBER="PHONENUMBER";
+	static final String WALLET="WALLET";
+	static final String PROFILEPIC="PROFILEPIC";
+	
 	@Override
 	public int insertUser(User user) throws SQLException {
 
@@ -75,8 +81,8 @@ public class UserDaoImpl implements UserDao {
 			userList = new ArrayList<>();
 			while (rs.next()) {
 
-				User user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getLong(7), rs.getDouble(8), rs.getString(9));
+				User user = new User(rs.getInt(USERID), rs.getString(NAME), rs.getString(USERNAME), rs.getString(ROLE), rs.getString(PASSWORD),
+						rs.getString(EMAIL), rs.getLong(PHONENUMBER), rs.getDouble(WALLET), rs.getString(PROFILEPIC));
 				userList.add(user);
 			}
 
@@ -116,8 +122,8 @@ public class UserDaoImpl implements UserDao {
 			userList = new ArrayList<>();
 			if (rs.next()) {
 
-				User user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getLong(7), rs.getDouble(8), rs.getString(9));
+				User user = new User(rs.getInt(USERID), rs.getString(NAME), rs.getString(USERNAME), rs.getString(ROLE), rs.getString(PASSWORD),
+						rs.getString(EMAIL), rs.getLong(PHONENUMBER), rs.getDouble(WALLET), rs.getString(PROFILEPIC));
 				userList.add(user);
 			}
 			return userList;
@@ -218,8 +224,8 @@ public class UserDaoImpl implements UserDao {
 			userList = new ArrayList<>();
 			while (rs.next()) {
 
-				User user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getLong(7), rs.getDouble(8), rs.getString(9));
+				User user = new User(rs.getInt(USERID), rs.getString(NAME), rs.getString(USERNAME), rs.getString(ROLE), rs.getString(PASSWORD),
+						rs.getString(EMAIL), rs.getLong(PHONENUMBER), rs.getDouble(WALLET), rs.getString(PROFILEPIC));
 				userList.add(user);
 			}
 			return userList;
@@ -381,7 +387,7 @@ public class UserDaoImpl implements UserDao {
 			ResultSet rs2 = stmt1.executeQuery();
 			if (rs2.next()) {
 
-				return rs2.getDouble(1);
+				return rs2.getDouble(WALLET);
 
 			}
 		} catch (ClassNotFoundException | SQLException e) {
@@ -447,7 +453,7 @@ public class UserDaoImpl implements UserDao {
 
 			if (rs2.next()) {
 
-				return rs2.getString(1);
+				return rs2.getString(NAME);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 

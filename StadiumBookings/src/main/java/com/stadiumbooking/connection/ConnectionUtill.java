@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.stadiumbooking.config.EncryptPassword;
+
 
 public class ConnectionUtill {
 
@@ -11,7 +13,13 @@ public class ConnectionUtill {
 	{
 		Class.forName("oracle.jdbc.OracleDriver");
 
-		return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");	
+		try {
+			return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system",EncryptPassword.decrypt());
+		} catch (Exception e) {
+		
+			e.getMessage();
+		}
+		return null;	
 	}
 	
 	
