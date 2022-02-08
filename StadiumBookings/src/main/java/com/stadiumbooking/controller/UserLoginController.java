@@ -17,16 +17,19 @@ import javax.servlet.http.HttpSession;
 import com.stadiumbooking.daoimpl.MatchDaoImpl;
 import com.stadiumbooking.daoimpl.UserDaoImpl;
 import com.stadiumbooking.exception.NotFound;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.User;
+import com.stadiumbooking.service.impl.MatchServiceImpl;
+import com.stadiumbooking.service.impl.UserServiceImpl;
 
 
 @WebServlet("/loginServe")
 public class UserLoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	final UserDaoImpl userDao = new UserDaoImpl();
+	static final UserServiceImpl userService=new UserServiceImpl();
 
-	final MatchDaoImpl matchDao = new MatchDaoImpl();
+	static final MatchServiceImpl matchService = new MatchServiceImpl();
 
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) {
@@ -40,17 +43,17 @@ public class UserLoginController extends HttpServlet {
 		try {
 			boolean flag;
 
-			flag = userDao.checkUser(userName, passWord);
+			flag = userService.checkUser(userName, passWord);
 			if (flag) {
 
-				List<User> userList = userDao.validateUser(userName, passWord);
+				List<User> userList = userService.validateUser(userName, passWord);
 				String role = userList.get(0).getRole();
 				int userID = userList.get(0).getUserid();
 				HttpSession session = req.getSession();
 				session.setAttribute("error", null);
 				session.setAttribute("id", userID);
 				session.setAttribute("role", role);
-				LocalDate today = matchDao.getDate();
+				LocalDate today = matchService.getDate();
 				session.setAttribute("today", today);
 				session.setAttribute("SomthingWentWrong", null);
 				session.setAttribute("RegisterSuccessful", null);
@@ -72,7 +75,8 @@ public class UserLoginController extends HttpServlet {
 			}
 		} catch (SQLException e) {
 
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		} catch (NotFound e) {
 
 			try {
@@ -84,13 +88,16 @@ public class UserLoginController extends HttpServlet {
 
 			} catch (IOException e1) {
 
-				e1.getMessage();
+				Logger.printStackTrace(e1);
+				Logger.runTimeException(e1.getMessage());
 			}
 		} catch (IOException e2) {
 
-			e2.getMessage();
-		} catch (ServletException e) {
-			e.printStackTrace();
+			Logger.printStackTrace(e2);
+			Logger.runTimeException(e2.getMessage());
+		} catch (ServletException e3) {
+			Logger.printStackTrace(e3);
+			Logger.runTimeException(e3.getMessage());
 		}
 
 	}

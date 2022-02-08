@@ -2,7 +2,7 @@ package com.stadiumbooking.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,14 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.stadiumbooking.daoimpl.UserDaoImpl;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.User;
+import com.stadiumbooking.service.impl.UserServiceImpl;
 
 
 
 @WebServlet("/update")
 public class UserUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	final UserDaoImpl userDao=new UserDaoImpl();
+	static final UserServiceImpl userService=new UserServiceImpl();
 
 	
 	@Override
@@ -37,25 +39,31 @@ public class UserUpdateController extends HttpServlet {
 		Long phoneNumber=Long.parseLong(req.getParameter("updateNumber"));
 		int userId = (int) session1.getAttribute("id");
 
-		
+		User user=new User();
+		user.setUserid(userId);
+		user.setName(name);
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setEmail(email);
+		user.setPhoneNumber(phoneNumber);
 		try {
 			
 			if(role.equals("Admin")) 
 			{
-				User user=new User(userId, name, username,null, password, email, phoneNumber,0.0,null);
-				userDao.updateUser(user);
+				
+				userService.updateUser(user);
 				int userID=(int) session1.getAttribute("id");
-				User userDetails=userDao.getUserById(userID);
+				User userDetails=userService.getUserById(userID);
 				req.setAttribute("user", userDetails);
 	         	req.setAttribute("adminUpdate", "adminupdate");
 	         	 RequestDispatcher rd = req.getRequestDispatcher("adminProfile.jsp");			
 					rd.forward(req, res);
 	}
 	else if(role.equals("User")) {
-		User user=new User(userId, name, username,null, password, email, phoneNumber,0.0,null);
-		userDao.updateUser(user);
+		
+		userService.updateUser(user);
 		int userID=(int) session1.getAttribute("id");
-		User userDetails=userDao.getUserById(userID);
+		User userDetails=userService.getUserById(userID);
 		req.setAttribute("user", userDetails);
 		req.setAttribute("userUpdate", "userUpdate");
 		 RequestDispatcher rd = req.getRequestDispatcher("usersprofile.jsp");			
@@ -64,13 +72,16 @@ public class UserUpdateController extends HttpServlet {
 		
 		} catch (SQLException e) {
 	
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		} catch (IOException e1) {
 			
-			e1.getMessage();
+			Logger.printStackTrace(e1);
+			Logger.runTimeException(e1.getMessage());
 		} catch (ServletException e2) {
 			
-			e2.getMessage();
+			Logger.printStackTrace(e2);
+			Logger.runTimeException(e2.getMessage());
 		}
 	}
 	

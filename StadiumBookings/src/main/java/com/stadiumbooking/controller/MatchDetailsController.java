@@ -14,23 +14,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stadiumbooking.daoimpl.SportsDaoImpl;
 import com.stadiumbooking.daoimpl.StadiumDaoImpl;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.Sports;
 import com.stadiumbooking.model.StadiumDetalis;
+import com.stadiumbooking.service.impl.SportsServiceImpl;
+import com.stadiumbooking.service.impl.StadiumServiceImpl;
 
 @WebServlet("/matchDetails")
 public class MatchDetailsController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	final SportsDaoImpl sportDao=new SportsDaoImpl();
-	final StadiumDaoImpl stadiumDao=new StadiumDaoImpl();
+	static final SportsServiceImpl sportService=new SportsServiceImpl();
+	static final StadiumServiceImpl stadiumService=new StadiumServiceImpl();
 	
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res)  {
 		
 	
 		try {
-			   List<Sports> sportsList=sportDao.getAllSports();
-			   List<StadiumDetalis> stadiumList=stadiumDao.getAllStadiumList();
+			   List<Sports> sportsList=sportService.getAllSports();
+			   List<StadiumDetalis> stadiumList=stadiumService.getAllStadiumList();
 				req.setAttribute("stadiumList", stadiumList);
 			    req.setAttribute("sportsList", sportsList);
 			
@@ -38,7 +41,8 @@ public class MatchDetailsController extends HttpServlet {
 				rd.forward(req, res);
 		} catch (SQLException | ServletException | IOException e) {
 	
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 	
 		

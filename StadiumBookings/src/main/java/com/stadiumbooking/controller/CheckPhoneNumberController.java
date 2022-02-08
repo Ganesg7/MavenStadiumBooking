@@ -9,18 +9,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stadiumbooking.daoimpl.UserDaoImpl;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.User;
+import com.stadiumbooking.service.impl.UserServiceImpl;
 
 @WebServlet("/checkPhonenumber")
 public class CheckPhoneNumberController  extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 final UserDaoImpl userDao=new UserDaoImpl();
+	
+	static final UserServiceImpl userService=new UserServiceImpl();
 	
 	 @Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res)  {
-		 Long phoneNumber=Long.parseLong(req.getParameter("phone"));	
+		
 		 try {
-			User user=userDao.checkPhoneNumber(phoneNumber);
+			 Long phoneNumber=Long.parseLong(req.getParameter("phone"));	
+			User user=userService.checkPhoneNumber(phoneNumber);
 			if(user==null) {
 				res.getWriter().print("");
 			}
@@ -30,7 +34,11 @@ public class CheckPhoneNumberController  extends HttpServlet {
 			
 			 
 		} catch (SQLException | IOException e) {
-			e.printStackTrace();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		}catch(NumberFormatException  e2) {
+			Logger.printStackTrace(e2);
+			Logger.runTimeException(e2.getMessage());
 		}
 	}
 

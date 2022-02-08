@@ -16,38 +16,47 @@
 </head>
 <body>
     <div class="sidenav">
-   <fmt:bundle basename = "com.stadiumbooking.bundle.Sidenavbar" prefix="nav.">
-         <a href="adminProfile"><fmt:message  key="Profile"/></a>
-        <a href="matchDetails" ><fmt:message  key="MatchDetails"/></a>
-        <a href="stadiumDetalis.jsp" ><fmt:message  key="StadiumDetails"/></a>
-        <a href="sportsDetalis.jsp"><fmt:message  key="SportsDetails"/></a>
-        <a href="Getallusers" ><fmt:message  key="AllUser"/></a>
-        <a href="showMatchToAdmin" ><fmt:message  key="AllMatchDetails"/></a>
-        <a href="allBookingDetails" ><fmt:message  key="AllBookingDetails"/></a>
-        <a href="allUserWalletList" ><fmt:message  key="AllUserWalletList"/></a>
-        <a href="stadiumList" ><fmt:message  key="StadiumList"/></a>
-        <a href="ratingList" ><fmt:message  key="RatingList"/></a>
-        <a href="index.jsp"><fmt:message key="LogOut"/></a>
-    </fmt:bundle>
+ <a href="adminProfile"> Profile
+			</a>
+			<a href="matchDetails"> Add Match 
+			</a>
+			<a href="stadiumDetalis.jsp"> Stadium Details 
+			</a>
+			<a href="sportsDetalis.jsp"> Add Sports 
+			</a>
+			<a href="Getallusers"> Users List
+			</a>
+			<a href="showMatchToAdmin"> All Match Details 
+			</a>
+			<a href="allBookingDetails"> Booking Details 
+			</a>
+			<a href="allUserWalletList"> Transaction Historys
+			</a>
+			<a href="stadiumList"> Stadium List 
+			</a>
+			<a href="ratingList"> Rating List
+			</a>
+			<a href="index.jsp"> Logout
+			</a>
+		
     </div>
     <br>
     <div id="sports">
     <form action="sports" onsubmit="return insert()">
 
-        <label ><strong>Sports Name:</strong></label>
+        <label for="sportsName"><strong>Sports Name:</strong></label>
         <input type="text" name="sportsName" id="sportsName" >
         <br>
         
         <label style="visibility: hidden;" id="sportsError">Enter Sports Name</label>
         <br>
-        <label ><strong>Event Name:</strong></label>
+        <label for="eventName"><strong>Event Name:</strong></label>
         <input type="text" name="eventName" id="eventName">
         <br>
         <label style="visibility: hidden;" id="event">Enter Event Name</label>
         <br>
-        <fmt:bundle basename = "com.stadiumbooking.bundle.ButtonsBundle" prefix="btn.">
-        <button type="submit"><fmt:message key="Submit"/></button>
-</fmt:bundle>
+        <button type="submit">Submit</button>
+
 
     </form>
 </div>

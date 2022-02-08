@@ -20,19 +20,23 @@ import com.stadiumbooking.daoimpl.WalletDaoImpl;
 import com.stadiumbooking.exception.HouseFull;
 import com.stadiumbooking.exception.LowBalance;
 import com.stadiumbooking.exception.LowSeatCount;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.Match;
 import com.stadiumbooking.model.Seats;
 import com.stadiumbooking.model.User;
+import com.stadiumbooking.service.impl.MatchServiceImpl;
+import com.stadiumbooking.service.impl.SeatsServiceImpl;
+import com.stadiumbooking.service.impl.UserServiceImpl;
+import com.stadiumbooking.service.impl.WalletServiceImpl;
 
 
 @WebServlet("/booking")
 public class BookingController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	final SeatsDaoImpl seatDao = new SeatsDaoImpl();
-	final MatchDaoImpl matchDao = new MatchDaoImpl();
-	final WalletDaoImpl walletDao = new WalletDaoImpl();
-	final UserDaoImpl userDao = new UserDaoImpl();
+	static final SeatsServiceImpl  seatService = new SeatsServiceImpl ();
+	static final MatchServiceImpl matchService = new MatchServiceImpl();
+	static final UserServiceImpl userService=new UserServiceImpl();
 
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) {
@@ -54,10 +58,11 @@ public class BookingController extends HttpServlet {
 		int avalibleSeats = 0;
 
 		try {
-			totalAvalibleSeats = matchDao.checkAvilableSeats(matchId);
+			totalAvalibleSeats = matchService.checkAvilableSeats(matchId);
 		} catch (SQLException e2) {
 
-			e2.getMessage();
+			Logger.printStackTrace(e2);
+			Logger.runTimeException(e2.getMessage());
 		}
 		avalibleSeats = totalAvalibleSeats - seatCounts;
 //If Seats Are Avalible (>0)
@@ -66,7 +71,7 @@ public class BookingController extends HttpServlet {
 			if (avalibleSeats >= 0) {
 
 				try {
-					Double walletBlance = userDao.userWalletDetails(userId);
+					Double walletBlance = userService.userWalletDetails(userId);
 
 					if (walletBlance >= totalprice) {
 						
@@ -75,16 +80,22 @@ public class BookingController extends HttpServlet {
 						user.setUserid(userId);
 						Match match=new Match();
 						match.setMatchId(matchId);
-						Seats seats = new Seats(0, user, ticketNumber, match, seatclass, totalprice, seatCounts,null);
-						seatDao.bookingSeats(seats);
+						Seats seats = new Seats();
+						seats.setUserid(user);
+						seats.setTicketNumbers(ticketNumber);
+						seats.setMatchId(match);
+						seats.setSeatclass(seatclass);
+						seats.setPrice(totalprice);
+						seats.setSeatcount(seatCounts);
+						seatService.bookingSeats(seats);
 
-						userDao.bookingTicktes(userId, totalprice);
-						matchDao.updateAvailableSeats(seatCounts, matchId);
-						List<Seats> seatsList = seatDao.getSeatById(userId);
+						userService.bookingTicktes(userId, totalprice);
+						matchService.updateAvailableSeats(seatCounts, matchId);
+						List<Seats> seatsList = seatService.getSeatById(userId);
 					
 
 						HttpSession session = req.getSession();
-						Double wallet = userDao.userWalletDetails(userId);
+						Double wallet = userService.userWalletDetails(userId);
 
 						session.setAttribute("wallet", wallet);
 						req.setAttribute("seatListById", seatsList);
@@ -105,18 +116,20 @@ public class BookingController extends HttpServlet {
 						session.setAttribute("LowBalanceError", e.getMessage());
 
 						int userID=(int) session.getAttribute("id");
-						Double wallet=userDao.userWalletDetails(userID);
+						Double wallet=userService.userWalletDetails(userID);
 						
 						session.setAttribute("wallet", wallet);
 					      RequestDispatcher rd = req.getRequestDispatcher("wallet.jsp");			
 								rd.forward(req, res);
 					} catch (IOException |SQLException|ServletException e1) {
 
-						e1.getMessage();
+						Logger.printStackTrace(e1);
+						Logger.runTimeException(e1.getMessage());
 					} 
 			} catch (ServletException e) {
 		
-					e.getMessage();
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
 				}}
 
 			else {
@@ -128,14 +141,15 @@ public class BookingController extends HttpServlet {
 					try {
 						HttpSession session = req.getSession();
 						session.setAttribute("LowCountSeats", lc.getMessage());
-						List<Match> matchDetails = matchDao.getAllMatchDetalis();
+						List<Match> matchDetails = matchService.getAllMatchDetalis();
 						req.setAttribute("MatchDetails", matchDetails);
 						
 					
 						 RequestDispatcher rd = req.getRequestDispatcher("allMatchDetalis.jsp");
 							rd.forward(req, res);
 					} catch (IOException | SQLException | ServletException e) {
-						e.getMessage();
+						Logger.printStackTrace(e);
+						Logger.runTimeException(e.getMessage());
 					}
 				}
 
@@ -148,15 +162,17 @@ public class BookingController extends HttpServlet {
 				try {
 					HttpSession houseFullsession = req.getSession();
 					houseFullsession.setAttribute("houseFull", hf.getMessage());
-					List<Match> matchDetails = matchDao.getAllMatchDetalis();
+					List<Match> matchDetails = matchService.getAllMatchDetalis();
 					req.setAttribute("MatchDetails", matchDetails);
 					 RequestDispatcher rd = req.getRequestDispatcher("allMatchDetalis.jsp");
 						rd.forward(req, res);
 				} catch (IOException | SQLException e) {
-					e.getMessage();
+					Logger.printStackTrace(e);
+					Logger.runTimeException(e.getMessage());
 				} catch (ServletException e1) {
 					
-					e1.getMessage();
+					Logger.printStackTrace(e1);
+					Logger.runTimeException(e1.getMessage());
 				}
 			}
 		}

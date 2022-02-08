@@ -17,22 +17,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stadiumbooking.daoimpl.MatchDaoImpl;
 import com.stadiumbooking.daoimpl.SportsDaoImpl;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.Match;
+import com.stadiumbooking.service.impl.MatchServiceImpl;
+import com.stadiumbooking.service.impl.SportsServiceImpl;
 
 
 @WebServlet("/matchServe")
 public class MatchController  extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	final MatchDaoImpl matchDao=new MatchDaoImpl();
+	
+	static final MatchServiceImpl matchService=new MatchServiceImpl();
+	static final SportsServiceImpl sportsService=new SportsServiceImpl();
 	
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse res) {
 	
 		/*  Getting Macth Details */
-		SportsDaoImpl sportsDao=new SportsDaoImpl();
-		
-	
-		
+
 		String stdName=req.getParameter("stdname").trim();
 	
 		String location=req.getParameter("location");
@@ -43,10 +45,11 @@ public class MatchController  extends HttpServlet{
 		
 		int spid = 0;
 		try {
-			spid = sportsDao.getSportsId(sportsName, eventName);
+			spid = sportsService.getSportsId(sportsName, eventName);
 		} catch (SQLException e2) {
 			
-			e2.getMessage();
+			Logger.printStackTrace(e2);
+			Logger.runTimeException(e2.getMessage());
 		}
 		
 				
@@ -72,21 +75,39 @@ public class MatchController  extends HttpServlet{
 				LocalDate date = LocalDate.parse(dateInString);
 					String timeInString=req.getParameter("time");
 			LocalTime time=LocalTime.parse(timeInString);
-			Match match=new Match(0,spid,stdName,location,date,time,teamA,teamB,teamAlogo,teamBlogo,totalseats,availSeats,fClass,sClass);
-			matchDao.insertMatchDetalis(match);
-			List<Match> matchDetails = matchDao.getAllMatchDetalis();
+			Match match=new Match();
+			
+			match.setSportsId(spid);
+			match.setStadiumName(stdName);
+			match.setLocation(location);
+			match.setMatchDate(date);
+			match.setMatchTime(time);
+			match.setTeamA(teamA);
+			match.setTeamB(teamB);
+			match.setTeamAlogo(teamAlogo);
+			match.setTeamBlogo(teamBlogo);
+			match.setTotalseats(totalseats);
+			match.setAvailableSeats(availSeats);
+			match.setFirstClassSeatsPrice(fClass);
+			match.setSecondClassSeatsPrice(sClass);
+			
+			matchService.insertMatchDetalis(match);
+			List<Match> matchDetails = matchService.getAllMatchDetalis();
 			req.setAttribute("MatchDetails", matchDetails);
 			 RequestDispatcher rd = req.getRequestDispatcher("showMatchToAdmin.jsp");
 				rd.forward(req, res);
 		} catch (SQLException e) {
 			
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		} catch (IOException e2) {
 			
-			e2.getMessage();
+			Logger.printStackTrace(e2);
+			Logger.runTimeException(e2.getMessage());
 		} catch (ServletException e1) {
 			
-			e1.getMessage();
+			Logger.printStackTrace(e1);
+			Logger.runTimeException(e1.getMessage());
 		}
 	}
 	

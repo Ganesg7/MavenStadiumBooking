@@ -9,11 +9,14 @@ import java.util.List;
 
 import com.stadiumbooking.connection.ConnectionUtill;
 import com.stadiumbooking.dao.WalletDao;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.User;
 import com.stadiumbooking.model.WalletDetails;
+import com.stadiumbooking.service.impl.UserServiceImpl;
 
 public class WalletDaoImpl implements WalletDao {
 
+	static final UserServiceImpl userService=new UserServiceImpl();
 	static final String WALLETID="WALLETID";
 	static final String USERID="USERID";
 	static final String AMOUNT="AMOUNT";
@@ -29,7 +32,6 @@ public class WalletDaoImpl implements WalletDao {
 		PreparedStatement stmt = null;
 		try {
 			con = conUtil.getDBConnect();
-			UserDaoImpl userDao = new UserDaoImpl();
 			String query = "insert into wallet_details(userId,amount) values(?,?)";
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, wallete.getUser().getUserid());
@@ -40,10 +42,11 @@ public class WalletDaoImpl implements WalletDao {
 
 			int userid = wallete.getUser().getUserid();
 			double amount = wallete.getAmount();
-			userDao.addAmount(userid, amount);
+			userService.addAmount(userid, amount);
 		} catch (ClassNotFoundException | SQLException e) {
 
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		} finally {
 
 			if (stmt != null) {
@@ -75,10 +78,8 @@ public class WalletDaoImpl implements WalletDao {
 			 walletList = new ArrayList<>();
 
 			while (rs.next()) {
-
-				UserDaoImpl userDao=new UserDaoImpl();
 				User user=new User();
-				user=userDao.getUserById(rs.getInt(USERID));
+				user=userService.getUserById(rs.getInt(USERID));
 				WalletDetails walletDetails = new WalletDetails(rs.getInt(WALLETID),user, rs.getLong(AMOUNT),
 						rs.getTimestamp(TRANSACTION_DATE).toLocalDateTime());
 				walletList.add(walletDetails);
@@ -86,12 +87,17 @@ public class WalletDaoImpl implements WalletDao {
 			return walletList;
 		
 		} catch (ClassNotFoundException | SQLException e) {
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 		finally {	
 		
+			
 			if(stmt!=null) {
 			stmt.close();     	
+			}
+			if(rs != null) {
+				rs.close();
 			}
 			if(con !=null) {
 			con.close();
@@ -122,9 +128,9 @@ public class WalletDaoImpl implements WalletDao {
 
 			while (rs.next()) {
 
-				UserDaoImpl userDao=new UserDaoImpl();
+				
 				User user=new User();
-				user=userDao.getUserById(rs.getInt(USERID));
+				user=userService.getUserById(rs.getInt(USERID));
 				WalletDetails walletDetails = new WalletDetails(rs.getInt(WALLETID),user, rs.getLong(AMOUNT),
 						rs.getTimestamp(TRANSACTION_DATE).toLocalDateTime());
 				walletList.add(walletDetails);
@@ -132,12 +138,17 @@ public class WalletDaoImpl implements WalletDao {
 			return walletList;
 		
 		} catch (ClassNotFoundException | SQLException e) {
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 		finally {	
 		
+			
 			if(stmt!=null) {
 			stmt.close();     	
+			}
+			if(rs != null) {
+				rs.close();
 			}
 			if(con !=null) {
 			con.close();

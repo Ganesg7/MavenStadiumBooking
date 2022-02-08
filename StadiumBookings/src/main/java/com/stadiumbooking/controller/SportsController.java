@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stadiumbooking.daoimpl.SportsDaoImpl;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.Sports;
+import com.stadiumbooking.service.impl.SportsServiceImpl;
 
 
 
 @WebServlet("/sports")
 public class SportsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	final SportsDaoImpl sportsDao=new SportsDaoImpl();
+	final SportsServiceImpl sportsService=new SportsServiceImpl();
 	
 	@Override
 	public void service(HttpServletRequest req,HttpServletResponse res) {
@@ -28,14 +30,16 @@ public class SportsController extends HttpServlet {
 		
 		Sports sports=new Sports(0,sportsName,eventName);
 		try {
-			sportsDao.insertSports(sports);
+			sportsService.insertSports(sports);
 			res.sendRedirect("sportsDetalis.jsp");
 		} catch (SQLException e) {
 			
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		} catch (IOException e1) {
 		
-			e1.getMessage();
+			Logger.printStackTrace(e1);
+			Logger.runTimeException(e1.getMessage());
 		}
 	}
 	

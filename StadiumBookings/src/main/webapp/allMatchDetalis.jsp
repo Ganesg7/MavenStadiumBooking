@@ -20,15 +20,15 @@
 
 <body>
     <div class="sidenav">
-       <fmt:bundle basename = "com.stadiumbooking.bundle.Sidenavbar" prefix="nav.">
-        <a href="usersprofile"><fmt:message  key="Profile"/></a>
-        <a href="allMatchDetalis"><fmt:message  key="UpcomingMatch"/></a>
-        <a href="mymatch"><fmt:message  key="MyMatch"/></a>
-        <a href="wallet"><fmt:message  key="Wallet"/></a>
-        <a href="stadiumList"><fmt:message  key="StadiumList"/></a>
-        <a href="ratingList"><fmt:message  key="RatingList"/></a>
-        <a href="index.jsp"><fmt:message key="LogOut"/></a>
-            </fmt:bundle>
+      
+        <a href="usersprofile">Profile </a>
+        <a href="allMatchDetalis">Upcoming Matches </a>
+        <a href="mymatch">My Bookings</a>
+        <a href="wallet">Wallet</a>
+        <a href="stadiumList">Stadium List </a>
+        <a href="ratingList">Rating List</a>
+        <a href="index.jsp">Logout</a>
+
     </div>
 
 
@@ -46,7 +46,6 @@
       <h2  id="Emesg" onclick="Error()" onkeypress="Error()" style="position:absolute; left:300px; top:10px;color:red;visibility:visible"> ${sessionScope.houseFull}</h2>
 </c:if>
   
- <!-- LowCountSeats -->
    <c:if test="${not empty sessionScope.LowCountSeats}">
       <h2  id="Emesg" onclick="Error()" onkeypress="Error()" style="position:absolute; left:300px; top:10px;color:red;visibility:visible"> ${sessionScope.LowCountSeats}</h2>
 </c:if>
@@ -82,9 +81,9 @@
 	
 <c:otherwise>  
 
-<fmt:bundle basename = "com.stadiumbooking.bundle.ButtonsBundle" prefix="btn.">
-<a href="bookSeats?matchId=${match.matchId}"> <fmt:message key="BookTickets"/></a>
-</fmt:bundle>
+
+<a href="bookSeats?matchId=${match.matchId}">Book Ticket</a>
+
 <br>
 <br>     
     </c:otherwise> 
@@ -99,8 +98,8 @@
 </c:forEach>
 </div>
     </div>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" integrity="filehash"></script>
-	<script src="assets/js/animation.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" integrity=''></script>
+	<script src="assets/js/animation.js" integrity=''></script>
 </body>
 </html>
 <script src="assets/js/match.js"></script>

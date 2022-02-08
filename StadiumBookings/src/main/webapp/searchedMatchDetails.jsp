@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="keywords" content="stadium booking,seat booking,stadium seat booking,match ticket booking">
-<link    rel="stylesheet"    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link    rel="stylesheet"    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity=''/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel = "icon" type = "" href = "assets/image/stadiumLogo.png">
@@ -21,20 +21,19 @@
 
 <body>
 	<div class="sidenav">
-	      <fmt:bundle basename = "com.stadiumbooking.bundle.Sidenavbar" prefix="nav.">
-        <a href="usersprofile"><fmt:message  key="Profile"/></a>
-        <a href="allMatchDetalis"><fmt:message  key="UpcomingMatch"/></a>
-        <a href="mymatch"><fmt:message  key="MyMatch"/></a>
-        <a href="wallet"><fmt:message  key="Wallet"/></a>
-        <a href="stadiumList"><fmt:message  key="StadiumList"/></a>
-        <a href="ratingList"><fmt:message  key="RatingList"/></a>
-        <a href="index.jsp"><fmt:message key="LogOut"/></a>
-            </fmt:bundle>
+	     
+        <a href="usersprofile">Profile </a>
+        <a href="allMatchDetalis">Upcoming Matches </a>
+        <a href="mymatch">My Bookings</a>
+        <a href="wallet">Wallet</a>
+        <a href="stadiumList">Stadium List </a>
+        <a href="ratingList">Rating List</a>
+        <a href="index.jsp">Logout</a>
 	</div>
 
 	<div id="search">
 		<form action="searchedMatchDetails">
-			<input type="text" name="teamName" placeholder="Search">
+			<input type="text" id="teamName" name="teamName" placeholder="Search"  aria-label="Search">
 			<button type="submit">&#128269;</button>
 		</form>
 	</div>
@@ -74,9 +73,9 @@
 	
 <c:otherwise>  
  
-<fmt:bundle basename = "com.stadiumbooking.bundle.ButtonsBundle" prefix="btn.">
-<a href="bookSeats?matchId=${match.matchId}"> <fmt:message key="BookTickets"/></a>
-</fmt:bundle>
+
+<a href="bookSeats?matchId=${match.matchId}"> Book Ticket</a>
+
 <br>
 <br>     
     </c:otherwise> 

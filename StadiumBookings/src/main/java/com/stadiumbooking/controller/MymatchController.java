@@ -13,13 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.stadiumbooking.daoimpl.SeatsDaoImpl;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.Seats;
+import com.stadiumbooking.service.impl.SeatsServiceImpl;
 
 @WebServlet("/mymatch")
 public class MymatchController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	final SeatsDaoImpl seatsDao = new SeatsDaoImpl();
+	final SeatsServiceImpl seatsService = new SeatsServiceImpl();
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
@@ -29,14 +31,15 @@ public class MymatchController extends HttpServlet {
 
 			int userID = (int) session.getAttribute("id");
 
-			List<Seats> seatListById = seatsDao.getSeatById(userID);
+			List<Seats> seatListById = seatsService.getSeatById(userID);
 			req.setAttribute("seatListById", seatListById);
 			req.setAttribute("cancel",null);
 			RequestDispatcher rd = req.getRequestDispatcher("mymatch.jsp");
 			rd.forward(req, res);
 		} catch (SQLException | ServletException | IOException e) {
 
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 
 	}

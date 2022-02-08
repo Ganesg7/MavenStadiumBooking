@@ -1,8 +1,6 @@
 package com.stadiumbooking.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.annotation.WebServlet;
@@ -12,19 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.stadiumbooking.daoimpl.UserDaoImpl;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.User;
+import com.stadiumbooking.service.impl.UserServiceImpl;
 
 
 @WebServlet("/checkUserName")
 public class CheckUsernameController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 final UserDaoImpl userDao=new UserDaoImpl();
+	 static final UserServiceImpl userService=new UserServiceImpl();
 	
 	 @Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res)  {
 		 String userName =req.getParameter("userName"); 
 		 try {
-			User user=userDao.checkUser(userName);
+			User user=userService.checkUser(userName);
 			if(user==null) {
 				res.getWriter().print("");
 			}
@@ -34,7 +34,8 @@ public class CheckUsernameController extends HttpServlet {
 			
 			 
 		} catch (SQLException | IOException e) {
-			e.printStackTrace();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 	}
 

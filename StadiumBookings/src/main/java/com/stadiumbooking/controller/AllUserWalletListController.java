@@ -12,18 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.stadiumbooking.daoimpl.WalletDaoImpl;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.WalletDetails;
+import com.stadiumbooking.service.impl.WalletServiceImpl;
 
 @WebServlet("/allUserWalletList")
 public class AllUserWalletListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static final WalletDaoImpl walletDao=new WalletDaoImpl();
+	static final WalletServiceImpl walletService=new WalletServiceImpl();
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
 
 		try {
-		    List<WalletDetails> walletList=walletDao.allUserWalletList();
+		    List<WalletDetails> walletList=walletService.allUserWalletList();
 			 
 		    req.setAttribute("walletList", walletList);
 			   
@@ -32,7 +34,8 @@ public class AllUserWalletListController extends HttpServlet {
 					rd.forward(req, res);
 		} catch (SQLException | ServletException | IOException e) {
 			
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 		
 	

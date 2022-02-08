@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.stadiumbooking.connection.ConnectionUtill;
 import com.stadiumbooking.dao.MatchDao;
+import com.stadiumbooking.logger.Logger;
 import com.stadiumbooking.model.Match;
 
 public class MatchDaoImpl implements MatchDao {
@@ -63,7 +64,8 @@ public class MatchDaoImpl implements MatchDao {
 	     	
 		} catch (ClassNotFoundException | SQLException e) {
 		
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}finally {
 			if(stmt!=null) {
 				stmt.close();
@@ -115,7 +117,8 @@ public class MatchDaoImpl implements MatchDao {
 		return matchList;
 		} catch (ClassNotFoundException | SQLException e) {
 		
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 		finally {
 		
@@ -123,6 +126,10 @@ public class MatchDaoImpl implements MatchDao {
 				stmt.close();
 		     	
 			}
+			if(rs != null) {
+				rs.close();
+			}
+			
 			if(con !=null) {
 				con.close();
 
@@ -150,13 +157,17 @@ public class MatchDaoImpl implements MatchDao {
 			return LocalDate.parse(dateinString);
 		} catch (ClassNotFoundException | SQLException e) {
 		
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 		finally {
 			
 			if(stmt!=null) {
 				stmt.close();
 		     	
+			}
+			if(rs != null) {
+				rs.close();
 			}
 			if(con !=null) {
 				con.close();
@@ -204,13 +215,18 @@ public class MatchDaoImpl implements MatchDao {
 			return match;
 		} catch (ClassNotFoundException | SQLException e) {
 		
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}finally {
 		
 			if(pst!=null) {
 				pst.close();
 		     	
 			}
+			if(rs != null) {
+				rs.close();
+			}
+			
 			if(con !=null) {
 				con.close();
 
@@ -241,7 +257,8 @@ public class MatchDaoImpl implements MatchDao {
 			pst.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 		
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 		finally {
 			
@@ -276,7 +293,8 @@ public class MatchDaoImpl implements MatchDao {
 			pst.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}	finally {
 			
 			if(pst!=null) {
@@ -327,13 +345,18 @@ public class MatchDaoImpl implements MatchDao {
 			return matchList;
 		} catch (ClassNotFoundException | SQLException e) {
 			
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}	finally {
-			
 			if(pst!=null) {
 				pst.close();
 		     	
 			}
+			
+			if(rs != null) {
+				rs.close();
+			}
+		
 			if(con !=null) {
 				con.close();
 
@@ -362,7 +385,8 @@ public class MatchDaoImpl implements MatchDao {
 
 		} catch (ClassNotFoundException | SQLException e) {
 	
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}	     finally {
 			
 			if(pstmt!=null) {
@@ -398,13 +422,18 @@ public class MatchDaoImpl implements MatchDao {
 	       return totalseats;
 		} catch (ClassNotFoundException | SQLException e) {
 		
-			e.getMessage();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}finally {
 		
 			if(	pstmt!=null) {
 				pstmt.close();
 		     	
 			}
+			if(rs != null) {
+				rs.close();
+			}
+			
 			if(con !=null) {
 				con.close();
 
